@@ -18,9 +18,9 @@
                     --config ./etc/kafka/kraft/server.properties \
                     --cluster-id $(./bin/kafka-storage random-uuid)
                     
-    4.5 Store the cluster id somewhere because you are going to need it to join the second broker with this broker. 
+    4.2 Store the cluster id somewhere because you are going to need it to join the second broker with this broker. 
 
-    4.6 start the broker by running ./bin/kafka-server-start ./etc/kafka/kraft/server.properties
+    4.3 start the broker by running ./bin/kafka-server-start ./etc/kafka/kraft/server.properties
     ```
 5. Do the same steps to run the broker [2], but note that you will specify the same cluster-id to the second broker. 
 6. To fetch the cluster id of your broker node, do this :
