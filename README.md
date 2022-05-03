@@ -10,7 +10,9 @@
 2. After running the first image, the docker container will have a folder called "/Kafka" open it 
 3. you will find a folder with the Kafka raft program "cd" to it, "confluent-7.0.1."
 
-4. while you are on this folder "confluent-7.0.1.", follow this URL to start Kafka broker [1]:  https://developer.confluent.io/quickstart/kafka-local/
+4. while you are on this folder "confluent-7.0.1.", follow this URL to start Kafka broker [1]: 
+ 
+    https://developer.confluent.io/quickstart/kafka-local/
    ```
    4.1  ./bin/kafka-storage format \
                     --config ./etc/kafka/kraft/server.properties \
