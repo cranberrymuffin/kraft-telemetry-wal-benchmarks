@@ -2,6 +2,7 @@
 
 ## To run Kafka cluster 
 1. Download these two images from the docker hub.
+
    1.1 https://hub.docker.com/r/latifah221b/brocker9092
    1.2 https://hub.docker.com/r/latifah221b/broker9094
    
