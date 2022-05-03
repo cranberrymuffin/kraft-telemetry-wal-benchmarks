@@ -20,11 +20,14 @@
     ```
 5. Do the same steps to run the broker [2], but note that you will specify the same cluster-id to the second broker. 
 6. To fetch the cluster id of your broker node, do this :
-7.  go run ./Admin.go localhost:9092 ----> it may take some time 
+
+```
+go run ./Admin.go localhost:9092 ----> it may take some time 
+```
    
-8. Use The go client to produce/consume from the cluster. 
-9.  To change the kafka cluster settings: vim ./etc/kafka/kraft/server.properties
-10. OR you can use The admin API to change your cluster settings. 
+7. Use The go client to produce/consume from the cluster. 
+8.  To change the kafka cluster settings: vim ./etc/kafka/kraft/server.properties
+9. OR you can use The admin API to change your cluster settings. 
     
 * #### By the end of this, you will have two docker images running on two ports: 9092 and 9094, representing a Kafka cluster that contains two brokers. 
 
