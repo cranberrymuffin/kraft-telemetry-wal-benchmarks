@@ -3,7 +3,7 @@ import copy
 import socket
 import uuid
 import base64
-
+import argparse
 
 def getFreePorts(numNodes):
     sockets = []
@@ -68,6 +68,14 @@ def generateConfig(numBrokers, numControllers):
 
 
 if __name__ == '__main__':
-    # minimum of 3 controllers
-    # 10 100 or 1000 brokers
-    generateConfig(3, 3)
+    parser = argparse.ArgumentParser(description='Process cluster configurations')
+    parser.add_argument('-b', type=int, default=0, help='number of brokers')
+    parser.add_argument('-c', type=int, default=0, help='number of controllers')
+
+    args = parser.parse_args()
+
+    if args.b == 0 and args.c == 0:
+        raise Exception("must specify at least one broker or controller")
+
+    generateConfig(args.b, args.c)
+
