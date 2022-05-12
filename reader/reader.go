@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func readJSon() {
+func readJson() {
 	// Open our jsonFile
 	file, err := os.Open("../data.json")
 	if err != nil {
