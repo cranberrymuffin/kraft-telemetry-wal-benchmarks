@@ -1,4 +1,4 @@
-# Benchmarking KRaft or Kafka Raft 
+# Benchmarking KRaft
 
 ## Kafka Cluster Creation
 
