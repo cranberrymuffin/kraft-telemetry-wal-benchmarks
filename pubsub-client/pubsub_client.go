@@ -140,7 +140,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	go pubSubClient.PublishFrom("../ExampleLogFile.json")
+	go pubSubClient.PublishFrom(os.Args[2])
 	pubSubClient.Consume()
 	pubSubClient.Shutdown()
 }
