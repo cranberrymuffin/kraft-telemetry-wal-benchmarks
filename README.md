@@ -18,7 +18,6 @@
 
 5. OR you can use The admin API to change your cluster settings. 
     
-* #### By the end of this, you will have two docker images running on two ports: 9092 and 9094, representing a Kafka cluster that contains two brokers. 
 
 * #### The producer logic is consuming the Github JSON file provided by Franco. 
    

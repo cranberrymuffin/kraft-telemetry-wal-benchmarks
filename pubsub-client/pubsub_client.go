@@ -61,8 +61,12 @@ func NewPubSubClient(bootStrapServers string, numTopics int) (*PubSubClient, err
 		return nil, err
 	}
 
-	topics := make([]string, numTopics)
 	//TODO Create topics with admin client + chance type to kafka.TopicSpecification
+	topics := make([]string, numTopics)
+	for i, _ := range topics {
+		topics[i] = getRandomId()
+	}
+
 	return &PubSubClient{
 		adminClient: adminClient,
 		subscriber:  subscriber,
@@ -131,12 +135,12 @@ func (p *PubSubClient) Shutdown() {
 }
 
 func main() {
-	bootstrapServers := "localhost:58105,localhost:58107,localhost:58109,localhost:58111,localhost:58113"
+	bootstrapServers := os.Args[1]
 	pubSubClient, err := NewPubSubClient(bootstrapServers, 5)
 	if err != nil {
 		panic(err)
 	}
-	go pubSubClient.PublishFrom("../ExampleLogFile.json")
+	go pubSubClient.PublishFrom(os.Args[2])
 	pubSubClient.Consume()
 	pubSubClient.Shutdown()
 }
