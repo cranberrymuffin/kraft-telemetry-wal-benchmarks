@@ -4,7 +4,7 @@
 
 1. Open the `cluster-scripts` folder
 
-2. run `create-kraft-broker.py -b <num brokers> -c <num controllers>`
+3. run `create-kraft-broker.py -b <num brokers> -c <num controllers>`
 
    NOTE: You do not have to specify both brokers and controllers. By only specifying the count of one, you will have a cluster of all combined role nodes (broker AND controller).
 
