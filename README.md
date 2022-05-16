@@ -17,7 +17,7 @@
 
 2. Run `benchmark-producer.py --data_file=<path to data file> --delimiter <optional arg for delimiters which aren't \n>`
 
-3. Output will have benchmarks for the producer run on your cluster.
+3. Output will have benchmarks on write throughput in records/sec and mb/sec for the producer run on your cluster.
 
 ~~## Go Client Connection~~
 
