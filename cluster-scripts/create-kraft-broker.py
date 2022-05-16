@@ -1,8 +1,6 @@
 from ruamel.yaml import YAML
 import copy
 import socket
-import uuid
-import base64
 import argparse
 
 
@@ -18,13 +16,6 @@ def getFreePorts(numNodes):
         sock.close()
 
     return ports
-
-
-def getRandomClusterId():
-    clusterId = uuid.uuid4().__str__().replace('-', '').encode('ascii')
-    clusterId = base64.b64encode(clusterId)
-    clusterId = clusterId.decode('ascii')
-    return clusterId[:22]
 
 
 def getQuorumNodesConfigVal(numNodes):
@@ -86,7 +77,7 @@ def generateConfig(numBrokers, numControllers):
         if i >= numControllers:
             new_mode_broker['environment']['KAFKA_PROCESS_ROLES'] = 'broker'
             # remove controller from kafka listeners
-            new_mode_broker['environment']['KAFKA_LISTENERS'] =\
+            new_mode_broker['environment']['KAFKA_LISTENERS'] = \
                 f'PLAINTEXT://{hostName}:29092,PLAINTEXT_HOST://0.0.0.0:{externalPort}'
 
         bootstrap_servers.append(f'localhost:{externalPort}')
@@ -98,8 +89,13 @@ def generateConfig(numBrokers, numControllers):
     with open('kraft-docker-compose-autogen.yml', 'w') as template:
         yaml.dump(example_config, template)
 
+    bootstrap_servers = ','.join(bootstrap_servers)
     # TODO: write list to config file in client-pubsub directory
-    print(','.join(bootstrap_servers))
+    with open('../benchmark-scripts/producer.config', 'w') as producer_config:
+        producer_config.write(f"bootstrap.servers={bootstrap_servers}")
+
+    print(bootstrap_servers)
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Process cluster configurations')

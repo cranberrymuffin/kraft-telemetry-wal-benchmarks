@@ -1,12 +1,9 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"github.com/confluentinc/confluent-kafka-go/kafka"
 	"github.com/gofrs/uuid"
-	"log"
-	"math/rand"
 	"os"
 	"time"
 )
@@ -14,19 +11,7 @@ import (
 type PubSubClient struct {
 	adminClient *kafka.AdminClient
 	subscriber  *kafka.Consumer
-	publisher   *kafka.Producer
 	topics      []string
-}
-
-func getFile(path string) *os.File {
-
-	// Open our file
-	file, err := os.Open(path)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return file
 }
 
 func getRandomId() string {
@@ -54,54 +39,15 @@ func NewPubSubClient(bootStrapServers string, numTopics int) (*PubSubClient, err
 		return nil, err
 	}
 
-	publisher, err := kafka.NewProducer(&kafka.ConfigMap{
-		"bootstrap.servers": bootStrapServers,
-	})
-	if err != nil {
-		return nil, err
-	}
-
-	//TODO Create topics with admin client + chance type to kafka.TopicSpecification
-	topics := make([]string, numTopics)
-	for i, _ := range topics {
-		topics[i] = getRandomId()
-	}
+	//TODO change from hardcoded value to list (and some way to hook this list up with producer.config)
+	topics := make([]string, 1)
+	topics[0] = "GaoVh9wTS-Gykm5z2GEbPA"
 
 	return &PubSubClient{
 		adminClient: adminClient,
 		subscriber:  subscriber,
-		publisher:   publisher,
 		topics:      topics,
 	}, nil
-}
-
-func (p *PubSubClient) BatchPublishFrom(logFile string, batchSize int) {
-
-}
-
-func (p *PubSubClient) PublishFrom(logFile string) {
-	file := getFile(logFile)
-	defer func(file *os.File) {
-		err := file.Close()
-		if err != nil {
-			panic(err)
-		}
-	}(file)
-	fileScanner := bufio.NewScanner(file)
-
-	for fileScanner.Scan() {
-		err := p.publisher.Produce(&kafka.Message{
-			TopicPartition: kafka.TopicPartition{Topic: &p.topics[rand.Intn(len(p.topics))], Partition: kafka.PartitionAny},
-			Value:          fileScanner.Bytes(),
-		}, nil)
-		if err != nil {
-			panic(err)
-		}
-	}
-
-	if err := fileScanner.Err(); err != nil {
-		log.Fatal(err)
-	}
 }
 
 func (p *PubSubClient) Consume() {
@@ -126,7 +72,6 @@ func (p *PubSubClient) Consume() {
 }
 
 func (p *PubSubClient) Shutdown() {
-	p.publisher.Close()
 	err := p.subscriber.Close()
 	if err != nil {
 		panic(err)
@@ -140,7 +85,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	go pubSubClient.PublishFrom(os.Args[2])
+	//go pubSubClient.PublishFrom(os.Args[2])
 	pubSubClient.Consume()
 	pubSubClient.Shutdown()
 }
