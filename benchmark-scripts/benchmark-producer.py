@@ -37,7 +37,6 @@ class ProducerBenchmarker:
              'client.id': 'admin_client'}
         )
 
-
     @staticmethod
     def processMetricResults(output):
         recordsPerSecond = ""
@@ -67,7 +66,7 @@ class ProducerBenchmarker:
         num_lines = sum(1 for _ in open(data_path, 'r'))
         topic = self.getAndCreateTopic()
         benchmarkCmd = f"kafka-producer-perf-test --num-records {num_lines} --throughput -1 " \
-                       f"--producer-props bootstrap.servers={self.bootstrap_servers} "\
+                       f"--producer-props bootstrap.servers={self.bootstrap_servers} " \
                        f"--print-metrics --payload-file {data_path} --topic {topic}"
         if self.delimiter != '\n':
             benchmarkCmd += f" --payload-delimiter {self.delimiter}"
