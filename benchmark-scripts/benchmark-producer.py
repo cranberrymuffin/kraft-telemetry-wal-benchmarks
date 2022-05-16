@@ -4,6 +4,7 @@ import subprocess
 import base64
 import uuid
 import pathlib
+import re
 
 
 def getRandomId():
@@ -25,6 +26,24 @@ def setDefaultConfigs():
         producer_config.write(f"client.id={getRandomId()}")
 
 
+def processMetricResults(output):
+    recordsPerSecond = ""
+    mbPerSecond = ""
+
+    for line in output.split('\n'):
+        if line.count("records/sec") == 0:
+            continue
+        else:
+            datapoints = line.split(",")
+            throughout = datapoints[1]
+            decimalRe = '\d*\.?\d+'
+            results = re.findall(decimalRe, throughout)
+            recordsPerSecond = results[0]
+            mbPerSecond = results[1]
+
+    return recordsPerSecond, mbPerSecond
+
+
 # TODO change from topic from hardcoded value to one generated from admin client
 def runBenchmarks(data_path, delimiter):
     data_path = pathlib.Path(data_path).resolve()
@@ -35,9 +54,9 @@ def runBenchmarks(data_path, delimiter):
                    f"--print-metrics --payload-file {data_path} --topic GaoVh9wTS-Gykm5z2GEbPA"
     if delimiter != '\n':
         benchmarkCmd += f" --payload-delimiter {delimiter}"
-
     result = subprocess.run(benchmarkCmd.split(' '), capture_output=True, text=True)
-    print(result.stdout)
+    recPerSec, mbPerSec = processMetricResults(result.stdout)
+    print(f"{recPerSec} records/sec; {mbPerSec} mb/sec")
 
 
 if __name__ == '__main__':
