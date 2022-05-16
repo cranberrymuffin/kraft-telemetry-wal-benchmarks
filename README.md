@@ -1,4 +1,4 @@
-# Benchmarking KRaft
+# Benchmarking Kraft (Zookeeper-less Kafka)
 
 ## Kafka Cluster Creation
 
