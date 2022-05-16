@@ -18,16 +18,3 @@
 2. Run `benchmark-producer.py --data_file=<path to data file> --delimiter <optional arg for delimiters which aren't \n>`
 
 3. Output will have benchmarks on write throughput in records/sec and mb/sec for the producer run on your cluster.
-
-~~## Go Client Connection~~
-
-~~3. Run `pubsub-client/pubsub_client.go <bootstrap server list: single comma seperated arg> <datapath>`. You will find the bootstrap server list as the output of step 2 from **Kafka Cluster Creation**~~
-
-~~e.g. `pubsub-client/pubsub_client.go localhost:58105,localhost:58107,localhost:58109,localhost:58111,localhost:58113 datafile.json~~
-
-~~4.  To change the kafka cluster settings: vim ./etc/kafka/kraft/server.properties~~
-
-~~5. OR you can use The admin API to change your cluster settings.~~
-    
-
-* #### The producer logic is consuming the Github JSON file provided by Franco.
