@@ -111,7 +111,7 @@ if __name__ == '__main__':
     if args.b == 0 and args.c == 0:
         raise Exception("must specify at least one broker or controller")
 
-    if args.b > 0 and args.c > 0 and args.b <3:
+    if args.b > 0 and 0 < args.c < 3:
         raise Exception("must have at least 3 embedded controllers in a mixed cluster")
 
     generateConfig(args.b, args.c)
