@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-type PubSubClient struct {
+type AdminClient struct {
 	adminClient *kafka.AdminClient
 	subscriber  *kafka.Consumer
 	topics      []string
@@ -22,7 +22,7 @@ func getRandomId() string {
 	return uuidObj.String()
 }
 
-func NewPubSubClient(bootStrapServers string, numTopics int) (*PubSubClient, error) {
+func NewPubSubClient(bootStrapServers string, numTopics int) (*AdminClient, error) {
 	adminClient, err := kafka.NewAdminClient(&kafka.ConfigMap{
 		"bootstrap.servers": bootStrapServers,
 	})
@@ -43,14 +43,14 @@ func NewPubSubClient(bootStrapServers string, numTopics int) (*PubSubClient, err
 	topics := make([]string, 1)
 	topics[0] = "GaoVh9wTS-Gykm5z2GEbPA"
 
-	return &PubSubClient{
+	return &AdminClient{
 		adminClient: adminClient,
 		subscriber:  subscriber,
 		topics:      topics,
 	}, nil
 }
 
-func (p *PubSubClient) Consume() {
+func (p *AdminClient) Consume() {
 	err := p.subscriber.SubscribeTopics(p.topics, nil)
 	if err != nil {
 		panic(err)
@@ -71,7 +71,7 @@ func (p *PubSubClient) Consume() {
 	}
 }
 
-func (p *PubSubClient) Shutdown() {
+func (p *AdminClient) Shutdown() {
 	err := p.subscriber.Close()
 	if err != nil {
 		panic(err)
