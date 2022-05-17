@@ -18,3 +18,34 @@
 2. Run `benchmark-producer.py --data_file=<path to data file> --delimiter <optional arg for delimiters which aren't \n>`
 
 3. Output will have benchmarks on write throughput in records/sec and mb/sec for the producer run on your cluster.
+
+## Configuration Tuning for Write Throughput
+
+Below we list the configuration variables for Brokers and Producers we intend to tune to improve write throughput.
+
+### Broker Service
+
+- Threads
+  - num.io.threads
+- compression.type
+- min.insync.replicas
+- Retention
+  - log.retention.bytes
+- log.retention.hours
+- log.retention.minutes
+- log.retention.ms
+- replication.factor
+  - default.replication.factor
+  - offsets.topic.replication.factor
+
+### Producer Client
+
+- buffer.memory
+- compression.type
+- retries
+- batch.size
+- delivery.timeout.ms
+- max.request.size
+- partitioner.class (?)
+- acks
+- max.in.flight.requests.per.connection
