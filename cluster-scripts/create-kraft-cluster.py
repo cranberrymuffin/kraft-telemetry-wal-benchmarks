@@ -90,10 +90,6 @@ def generateConfig(numBrokers, numControllers):
         yaml.dump(example_config, template)
 
     bootstrap_servers = ','.join(bootstrap_servers)
-    # TODO: write list to config file in client-pubsub directory
-    with open('../benchmark-scripts/producer.config', 'w') as producer_config:
-        producer_config.write(f"bootstrap.servers={bootstrap_servers}")
-
     print(bootstrap_servers)
 
 
