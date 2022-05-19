@@ -21,14 +21,14 @@
 
 ## Configuration Tuning for Write Throughput
 
-Below we list the configuration variables for Brokers and Producers we intend to tune to improve write throughput.
+Below we list the configuration variables for Brokers, Topics, and Producers we intend to tune to improve write throughput.
 
 ### Broker Service
 
 | Name                       | Description                                                                                                                                                                         | Type | Default Value  | Min | Max                 | Our Values      |
 |----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------|----------------|-----|---------------------|-----------------|
 | num.io.threads             | The number of threads that the server uses for processing requests, which may include disk I/O                                                                                      | int  |              8 |   1 | max num of threads  | same as default |
-| min.insync.replicas        | When a producer sets acks to "all" (or "-1"), min.insync.replicas specifies the minimum number of replicas that must acknowledge a write for the write to be considered successful. | int  |              1 |   1 | max num of replicas |             1-2 |
+| min.insync.replicas        | specifies the minimum number of replicas that must acknowledge a write for the write to be considered successful. | int  |              1 |   1 | max num of replicas |             1-2 |
 | log.retention.bytes        | The maximum size of the log before deleting it                                                                                                                                      | long |             -1 |  -1 | max memory?         |               0 |
 | log.retention.ms           | The number of milliseconds to keep a log file before deleting it (in milliseconds)                                                                                                  | long | null (not set) |   0 | max long            |               0 |
 
