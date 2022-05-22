@@ -43,7 +43,7 @@ class ProducerBenchmarker:
             'acks': (0, 3),
             'buffer_memory': (10000, 245618),  # TODO: relative to machine and data file
             'batch_size': (10000, 2147483647),
-            'delivery_timeout_ms': (0, 180000), # TODO: figure this out
+             # TODO: figure this out
         }
 
         optimizer = BayesianOptimization(
@@ -85,8 +85,7 @@ class ProducerBenchmarker:
         batch_size = min(buffer_memory, int(batch_size))
         compression_type = ['none', 'gzip', 'snappy', 'lz4', 'zstd'][int(compression_type)]
         # TODO figure out this parameter
-        # delivery_timeout_ms = linger_ms + request_timeout_ms
-        delivery_timeout_ms = int(delivery_timeout_ms)
+        delivery_timeout_ms = linger_ms + request_timeout_ms
         acks = [0, 1, 'all'][int(acks)]
 
         data_path = pathlib.Path(self.data_path).resolve()
